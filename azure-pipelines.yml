@@ -15,7 +15,7 @@ stages:
   - job: BuildJob
 steps:
  - task: Maven@3
-  inputs:
+   inputs:
      mavenPomFile: 'pom.xml'
      mavenOptions: '-Xmx3072m'
      javaHomeOption: 'JDKVersion'
@@ -24,16 +24,3 @@ steps:
      publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-- stage: Artefact storag
-  jobs:
-  - job: Fetch
-    steps:
-    - script: echo test1
-  - job: TestStage2
-    steps:
-    - script: echo Test stage2
-- stage: Deploy
-  jobs:
-  - job: Deploy
-    steps:
-    - script: echo Deploying the code
