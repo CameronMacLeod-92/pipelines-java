@@ -8,7 +8,13 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
-
+stages:
+- stage: build
+  displayName: Build
+  jobs:
+  - job: Build
+    pool:
+      name: Default
 steps:
 - task: Maven@3
   inputs:
