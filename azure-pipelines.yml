@@ -25,14 +25,16 @@ stages:
       goals: 'package'
 - stage: ArtifactStorage
 
+# Delay
+# Delay further execution of a workflow by a fixed time
   jobs:
-  - job: Deploy
+  - job: RunsOnServer
   pool:
     vmImage: 'ubuntu-16.04'
     steps:
-    - task: bash@3
-    inputs:
-      scriptPath: pipelines-java/shell_demo.sh
+    - task: Delay@1
+      inputs:
+      delayForMinutes: '1' 
 
 - stage: Test
 
