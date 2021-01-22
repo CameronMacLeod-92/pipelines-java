@@ -23,7 +23,7 @@ stages:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'package'
-- stage: ArtifactStorage
+- stage: NotArtifactNowDelay
 
 # Delay
 # Delay further execution of a workflow by a fixed time
@@ -35,6 +35,14 @@ stages:
     - task: Delay@1
       inputs:
       delayForMinutes: '1' 
+  - job: Apologise
+    pool:
+      vmImage: 'ubuntu-16.04'
+      steps:
+    - task: Bash@3
+      targetType: 'inline'
+    script: echo Sorry for not getting the right stages in place on time
+
 
 - stage: Test
 
