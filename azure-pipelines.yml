@@ -6,9 +6,8 @@
 trigger:
 - main
 
-pool:
-  vmImage: 'ubuntu-latest'
-
+Stages:
+  - stage: Build
 steps:
 - task: Maven@3
   inputs:
@@ -24,3 +23,7 @@ steps:
   inputs:
     targetType: 'inline'
     script: echo Test1
+
+  - stage: Artifact
+
+  
