@@ -23,7 +23,7 @@ stages:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'package'
-- stage: B
+- stage: Artifact Storage
 
   jobs:
   - job: buildandtest
@@ -40,5 +40,13 @@ stages:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'package'
+- stage: Test
 
-
+  jobs:
+  - job: Test
+  pool:
+    vmImage: 'ubuntu-16.04'
+    steps:
+    - task: Bash@3
+      targetType: 'inline'
+    script: echo Multi-stage pipeline
