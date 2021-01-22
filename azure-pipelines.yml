@@ -13,28 +13,27 @@ stages:
 - stage: Build
   jobs:
   - job: BuildJob
-    steps:
-    - script: echo Building!
-    - task: Maven@3
-    inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
+steps:
+ - task: Maven@3
+  inputs:
+     mavenPomFile: 'pom.xml'
+     mavenOptions: '-Xmx3072m'
+     javaHomeOption: 'JDKVersion'
+     jdkVersionOption: '1.8'
+     jdkArchitectureOption: 'x64'
+     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
 - stage: Artefact storag
   jobs:
   - job: Fetch
     steps:
-    - script: 
-  - job: TestOnLinux
+    - script: echo test1
+  - job: TestStage2
     steps:
-    - script: echo Testing on Linux!
+    - script: echo Test stage2
 - stage: Deploy
   jobs:
   - job: Deploy
     steps:
-    - script: echo Deploying the code!
+    - script: echo Deploying the code
