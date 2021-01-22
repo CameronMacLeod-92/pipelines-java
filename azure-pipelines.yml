@@ -5,16 +5,15 @@
 
 trigger:
 - main
+stages:
+- stage: A
 
-pool:
-  vmImage: 'ubuntu-latest'
-
-jobs:
-- job: buildandtest
+  jobs:
+  - job: buildandtest
   pool:
     vmImage: 'ubuntu-16.04'
-  steps:
-  - task: Maven@3
+    steps:
+    - task: Maven@3
     inputs:
       mavenPomFile: 'pom.xml'
       mavenOptions: '-Xmx3072m'
@@ -24,11 +23,4 @@ jobs:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'package'
-- job : NextJobTest
-  pool:
-    vmImage: 'ubuntu-16.04'
-  steps:
-  - task : Bash@3
-    inputs:
-      targetType: 'inline'
-      script: echo IT'S WORKING!!
+
