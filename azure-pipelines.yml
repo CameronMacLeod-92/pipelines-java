@@ -6,6 +6,14 @@
 trigger:
 - main
 
+variables:
+  image_name: mcr.microsoft.com/businesscentral/sandbox
+  container_name: Build
+  company_name: DEvOps Test
+  user_name: admin
+  password: P@ssword1
+  license_file: C:\Users\james.pearson.TECMAN\Desktop\Licence.flf
+
 pool:
   vmImage: 'ubuntu-latest'
 stages:
@@ -15,14 +23,26 @@ stages:
   - job: Build
     pool:
       name: Default
-steps:
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'pom.xml'
-    mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
-    jdkArchitectureOption: 'x64'
-    publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    steps:
+      - task: PowerShell@1    
+        displayName: Create build container
+        inputs:
+          scriptType: inlineScript
+          inlineScript: > 
+            Import-Module navcontainerhelper;
+            $Credential = [PSCredential]::new('$(user_name)',(ConvertTo-SecureString '$(password)' -AsPlainText -Force));
+            New-NavContainer -accept_eula -accept_outdated -containerName '$(container_name)' -auth NavUserPassword -credential $Credential -image $(image_name) -licenseFile $(license_file) -doNotExportObjectsToText -restart no -shortcuts None -useBestContainerOS -includeTestToolkit -includeTestLibrariesOnly -updateHosts
+
+
+#steps:
+#- task: Maven@3
+#  inputs:
+#    mavenPomFile: 'pom.xml'
+#    mavenOptions: '-Xmx3072m'
+#    javaHomeOption: 'JDKVersion'
+#    jdkVersionOption: '1.8'
+#    jdkArchitectureOption: 'x64'
+#    publishJUnitResults: true
+#    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+#    goals: 'package'
+    
