@@ -28,7 +28,7 @@ stages:
 # Delay
 # Delay further execution of a workflow by a fixed time
   jobs:
-  - job: RunsOnServer
+  - job: NotArtifactNowDelay
   pool:
     vmImage: 'ubuntu-16.04'
     steps:
