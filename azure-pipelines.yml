@@ -24,3 +24,11 @@ jobs:
       publishJUnitResults: true
       testResultsFiles: '**/surefire-reports/TEST-*.xml'
       goals: 'package'
+- job : NextJobTest
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+  - task : Bash@3
+    inputs:
+      targetType: 'inline'
+      script: echo IT'S WORKING!!
